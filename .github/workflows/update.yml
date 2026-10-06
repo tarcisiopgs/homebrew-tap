@@ -27,8 +27,12 @@ jobs:
             exit 0
           fi
           eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-          brew install --formula ./Formula/devsweep.rb
-          brew test devsweep
+          # Homebrew only installs from a tap: this checkout becomes one.
+          taps="$(brew --repository)/Library/Taps/tarcisiopgs"
+          mkdir -p "$taps"
+          ln -s "$PWD" "$taps/homebrew-tap"
+          brew install tarcisiopgs/tap/devsweep
+          brew test tarcisiopgs/tap/devsweep
           echo "version=$(devsweep --version | cut -d ' ' -f 2)" >> "$GITHUB_OUTPUT"
       - name: Commit
         if: steps.changed.outputs.version != ''
