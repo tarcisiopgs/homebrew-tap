@@ -1,6 +1,6 @@
 name: Update formula
 
-# Follows the releases of tarcisiopgs/devsweep: when a new one has its
+# Follows the releases of the projects in this tap: when a new one has its
 # binaries, the formula is rewritten, installed, tested and committed. It
 # runs on this repository's own token, so no secret is stored anywhere.
 on:
@@ -18,28 +18,28 @@ jobs:
       GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
-      - run: bash scripts/update.sh
-      - name: Install and test the new formula
-        id: changed
+      - name: Update, install, test and commit each formula
         run: |
-          if git diff --quiet; then
-            echo "nothing new"
-            exit 0
-          fi
-          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-          # Homebrew only installs from a tap: this checkout becomes one.
-          taps="$(brew --repository)/Library/Taps/tarcisiopgs"
-          mkdir -p "$taps"
-          ln -s "$PWD" "$taps/homebrew-tap"
-          brew install tarcisiopgs/tap/devsweep
-          brew test tarcisiopgs/tap/devsweep
-          echo "version=$(devsweep --version | cut -d ' ' -f 2)" >> "$GITHUB_OUTPUT"
-      - name: Commit
-        if: steps.changed.outputs.version != ''
-        env:
-          VERSION: ${{ steps.changed.outputs.version }}
-        run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -am "devsweep $VERSION"
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          for name in devsweep otto; do
+            bash scripts/update.sh "$name"
+            if [ -z "$(git status --porcelain "Formula/$name.rb")" ]; then
+              echo "$name: nothing new"
+              continue
+            fi
+            # Homebrew only installs from a tap: this checkout becomes one.
+            taps="$(brew --repository)/Library/Taps/tarcisiopgs"
+            if [ ! -e "$taps/homebrew-tap" ]; then
+              mkdir -p "$taps"
+              ln -s "$PWD" "$taps/homebrew-tap"
+            fi
+            brew install "tarcisiopgs/tap/$name"
+            brew test "tarcisiopgs/tap/$name"
+            version=$("$name" --version | cut -d ' ' -f 2)
+            git add "Formula/$name.rb"
+            git commit -m "$name $version"
+          done
           git push
