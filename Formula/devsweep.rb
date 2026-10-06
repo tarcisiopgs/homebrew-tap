@@ -1,7 +1,6 @@
 class Devsweep < Formula
   desc "Find and remove what a developer's machine accumulates"
   homepage "https://github.com/tarcisiopgs/devsweep"
-  version "0.4.1"
   license "MIT"
 
   on_macos do
