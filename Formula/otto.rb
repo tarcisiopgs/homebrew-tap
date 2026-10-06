@@ -5,23 +5,23 @@ class Otto < Formula
 
   on_macos do
     on_arm do
-      url "https://github.com/tarcisiopgs/otto/releases/download/v0.2.0/otto-aarch64-apple-darwin.tar.xz"
-      sha256 "fee0416f70e536808ee0ffa9ff498ecd4b2e64fc1a0a6400ed44a86d99d02b63"
+      url "https://github.com/tarcisiopgs/otto/releases/download/v0.3.0/otto-aarch64-apple-darwin.tar.xz"
+      sha256 "0a224b21bbd31a890bf5ecca16915aae907fe528e961c81d94a3b1c444cea3bd"
     end
     on_intel do
-      url "https://github.com/tarcisiopgs/otto/releases/download/v0.2.0/otto-x86_64-apple-darwin.tar.xz"
-      sha256 "ee35772765c0a181624a1340a43ed90a30b8f59dbec0fd2098f793c3b631ed8c"
+      url "https://github.com/tarcisiopgs/otto/releases/download/v0.3.0/otto-x86_64-apple-darwin.tar.xz"
+      sha256 "7db7b5ecc7f21b330903f845c756f63726a7e1858c6f758c9df88da09f1866f9"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/tarcisiopgs/otto/releases/download/v0.2.0/otto-aarch64-unknown-linux-musl.tar.xz"
-      sha256 "729d9d22fdb1692b67d5d77643eae2f2be14d3b98b902009116ae4e293031d2c"
+      url "https://github.com/tarcisiopgs/otto/releases/download/v0.3.0/otto-aarch64-unknown-linux-musl.tar.xz"
+      sha256 "377119c17d4c5e9e78b812684a2536905f40fb94dc4af77773d70b5e81c7b0f0"
     end
     on_intel do
-      url "https://github.com/tarcisiopgs/otto/releases/download/v0.2.0/otto-x86_64-unknown-linux-musl.tar.xz"
-      sha256 "e57026e7442401cc7113f095856fcad23359747aacf93c2bdb39468a51a5d00a"
+      url "https://github.com/tarcisiopgs/otto/releases/download/v0.3.0/otto-x86_64-unknown-linux-musl.tar.xz"
+      sha256 "9460ec4176e60a8c55173363f1ad756967367dfe28b720940b799a2a6f3092fa"
     end
   end
 
