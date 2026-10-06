@@ -19,8 +19,9 @@ jobs:
         os: [macos-latest, ubuntu-latest]
     steps:
       - uses: actions/checkout@v4
-      - name: Install and test the formula
+      - name: Install and test every formula
         run: |
+          set -euo pipefail
           if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
             eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
           fi
@@ -28,6 +29,8 @@ jobs:
           taps="$(brew --repository)/Library/Taps/tarcisiopgs"
           mkdir -p "$taps"
           ln -s "$PWD" "$taps/homebrew-tap"
-          brew install tarcisiopgs/tap/devsweep
-          brew test tarcisiopgs/tap/devsweep
-          devsweep --version
+          for name in devsweep otto; do
+            brew install "tarcisiopgs/tap/$name"
+            brew test "tarcisiopgs/tap/$name"
+            "$name" --version
+          done
