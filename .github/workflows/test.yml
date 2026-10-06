@@ -24,6 +24,10 @@ jobs:
           if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
             eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
           fi
-          brew install --formula ./Formula/devsweep.rb
-          brew test devsweep
+          # Homebrew only installs from a tap: this checkout becomes one.
+          taps="$(brew --repository)/Library/Taps/tarcisiopgs"
+          mkdir -p "$taps"
+          ln -s "$PWD" "$taps/homebrew-tap"
+          brew install tarcisiopgs/tap/devsweep
+          brew test tarcisiopgs/tap/devsweep
           devsweep --version
