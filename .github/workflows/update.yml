@@ -1,0 +1,41 @@
+name: Update formula
+
+# Follows the releases of tarcisiopgs/devsweep: when a new one has its
+# binaries, the formula is rewritten, installed, tested and committed. It
+# runs on this repository's own token, so no secret is stored anywhere.
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash scripts/update.sh
+      - name: Install and test the new formula
+        id: changed
+        run: |
+          if git diff --quiet; then
+            echo "nothing new"
+            exit 0
+          fi
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          brew install --formula ./Formula/devsweep.rb
+          brew test devsweep
+          echo "version=$(devsweep --version | cut -d ' ' -f 2)" >> "$GITHUB_OUTPUT"
+      - name: Commit
+        if: steps.changed.outputs.version != ''
+        env:
+          VERSION: ${{ steps.changed.outputs.version }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "devsweep $VERSION"
+          git push
