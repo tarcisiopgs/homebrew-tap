@@ -15,16 +15,17 @@ sum() {
   curl -fsSL "${base}/devsweep-${1}.tar.xz.sha256" | cut -d " " -f 1
 }
 if ! mac_arm=$(sum aarch64-apple-darwin) ||
-  ! mac_intel=$(sum x86_64-apple-darwin) ||
-  ! linux_arm=$(sum aarch64-unknown-linux-musl) ||
-  ! linux_intel=$(sum x86_64-unknown-linux-musl); then
+   ! mac_intel=$(sum x86_64-apple-darwin) ||
+   ! linux_arm=$(sum aarch64-unknown-linux-musl) ||
+   ! linux_intel=$(sum x86_64-unknown-linux-musl)
+then
   echo "${tag} has no binaries yet; leaving the formula alone"
   exit 0
 fi
 
 cd "$(dirname "${0}")/.."
 mkdir -p Formula
-cat > Formula/devsweep.rb <<RUBY
+cat >Formula/devsweep.rb <<RUBY
 class Devsweep < Formula
   desc "Find and remove what a developer's machine accumulates"
   homepage "https://github.com/${repo}"
