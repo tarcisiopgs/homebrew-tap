@@ -5,23 +5,23 @@ class Devsweep < Formula
 
   on_macos do
     on_arm do
-      url "https://github.com/tarcisiopgs/devsweep/releases/download/v0.4.2/devsweep-aarch64-apple-darwin.tar.xz"
-      sha256 "3ee406e9e3c21c44352a7674d96b81f04f1a1125e228ff669387e3d1b4181f92"
+      url "https://github.com/tarcisiopgs/devsweep/releases/download/v0.4.3/devsweep-aarch64-apple-darwin.tar.xz"
+      sha256 "ae8db72aafc2a27a3e0ac4cce8d631bea50639f0b638259a2c731fbd91939167"
     end
     on_intel do
-      url "https://github.com/tarcisiopgs/devsweep/releases/download/v0.4.2/devsweep-x86_64-apple-darwin.tar.xz"
-      sha256 "ea2888bb45f3d74b1b2320bf0a19d9b912cf29bec2859d4972e3369b20c7a77a"
+      url "https://github.com/tarcisiopgs/devsweep/releases/download/v0.4.3/devsweep-x86_64-apple-darwin.tar.xz"
+      sha256 "a9a5e68c101515495c7ab3ce4ad162a0ab1e994ab1be9b7ef9b7866164eae55b"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/tarcisiopgs/devsweep/releases/download/v0.4.2/devsweep-aarch64-unknown-linux-musl.tar.xz"
-      sha256 "f40b48c675a6c48c54abd40167b69f3fa085a536687d78d4c1cb5ba98b5f29cc"
+      url "https://github.com/tarcisiopgs/devsweep/releases/download/v0.4.3/devsweep-aarch64-unknown-linux-musl.tar.xz"
+      sha256 "5900baf45dc11e58cab72d919dd1de1e3e3f50804a1ba1ecee7da0492c01a85e"
     end
     on_intel do
-      url "https://github.com/tarcisiopgs/devsweep/releases/download/v0.4.2/devsweep-x86_64-unknown-linux-musl.tar.xz"
-      sha256 "93fe1e5ad9dfd781b1268d0fb4faa2bbfe2902f5774a27dd6da52f78b5967f4f"
+      url "https://github.com/tarcisiopgs/devsweep/releases/download/v0.4.3/devsweep-x86_64-unknown-linux-musl.tar.xz"
+      sha256 "ed8a40077fb89d78b66a98f0fbea56b42cd6e8f85e929e3ddde08c02046a2699"
     end
   end
 
